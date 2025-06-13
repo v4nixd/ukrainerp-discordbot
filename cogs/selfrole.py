@@ -1,7 +1,9 @@
-from disnake import AppCommandInteraction, Embed, Colour
+from disnake import AppCommandInteraction, Embed, DiscordException
 from disnake.ext import commands
 
 from ui.selfrole.view.server_select_view import ServerSelectView
+from ui.error_handler.view.report_to_dev_view import ReportToDevView
+from ui.error_handler.view.error_handler_view import ErrorHandlerView
 from logger import logger
 
 class SelfRole(commands.Cog):
@@ -12,9 +14,32 @@ class SelfRole(commands.Cog):
     @commands.has_permissions(administrator=True)
     @commands.guild_only()
     async def init_selfrole(self, interaction: AppCommandInteraction):
-        await interaction.channel.send(embed=Embed(title="Оберіть на якому сервері ви граєте", color=0x7289DA), view=ServerSelectView(interaction.guild))
+        await interaction.channel.send(embed=Embed(title="Оберіть сервер, на якому ви граєте.", color=0x5865f2), view=ServerSelectView(interaction.guild))
         await interaction.response.send_message("✅", ephemeral=True)
         logger.info(f"[SERVER SELECT] menu initialized by user `{interaction.user.name}`")
+
+    @init_selfrole.error
+    async def init_selfrole_error(self, interaction: AppCommandInteraction, error: DiscordException):
+        if isinstance(error, commands.MissingPermissions):
+            logger.warning(f"[COMMAND WARN] selfrole - someone tried using init_selfrole without admin permissions!")
+            await interaction.response.send_message("❌ У вас немає прав адміністратора.", ephemeral=True)
+            return
+        try:
+            logger.error(f"[COMMAND ERROR] selfrole - init_selfrole failed: {type(error).__name__}: {error}")
+            if interaction.response.is_done():
+                await interaction.followup.send(
+                    content=f"## ❌ Виникла помилка!\n```\n{error}\n```\nПовідомте про це <@936343190632558593>",
+                    view=ErrorHandlerView(error),
+                    ephemeral=True
+                )
+            else:
+                await interaction.response.send_message(
+                    content=f"## ❌ Виникла помилка!\n```\n{error}\n```\nПовідомте про це <@936343190632558593>",
+                    view=ErrorHandlerView(error),
+                    ephemeral=True
+                )
+        except Exception as e:
+            logger.exception(f"❌ Error while sending error message\n{e}")
 
 def setup(client):
     client.add_cog(SelfRole(client))
