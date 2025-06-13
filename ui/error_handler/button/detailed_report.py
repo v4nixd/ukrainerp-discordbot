@@ -1,6 +1,6 @@
 import traceback
 
-from disnake import ui, ButtonStyle, Interaction, DiscordException, Embed
+from disnake import ui, ButtonStyle, Interaction, DiscordException, Embed, Color
 
 from ui.error_handler.view.report_to_dev_view import ReportToDevView
 
@@ -17,7 +17,7 @@ class DetailedReportButton(ui.Button):
         await interaction.response.send_message(
             embed=Embed(
                 title="📄 Детальний звіт помилки",
-                color=0xff0000
+                color=Color.red()
             )
             .add_field(
                 name=f"⚠️ - {str(self.error).split(":")[0]}",
@@ -29,5 +29,3 @@ class DetailedReportButton(ui.Button):
             view=ReportToDevView(self.error),
             ephemeral=True
         )
-
-#TODO - IMPLEMENT report_to_dev_view

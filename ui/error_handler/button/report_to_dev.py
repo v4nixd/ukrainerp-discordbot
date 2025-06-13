@@ -1,8 +1,9 @@
 import traceback
 
-from disnake import ui, ButtonStyle, Interaction, DiscordException, Embed
+from disnake import ui, ButtonStyle, Interaction, DiscordException, Embed, Color
 
 from bot import client
+from constants import ID
 
 # from logger import logger
 
@@ -19,7 +20,7 @@ class ReportToDevButton(ui.Button):
         # logger.debug(f"```\n{str(traceback.format_exception(self.error))[-1000:]}\n```")
         error_embed = Embed(
             title="📄 Детальний звіт помилки",
-            color=0xff0000
+            color=Color.red()
         ).add_field(
             name=f"⚠️ - {str(self.error).split(":")[0]}",
             value=f"```\n{str(traceback.format_exception(self.error)).split("\\n")[-2]}\n```"
@@ -28,9 +29,9 @@ class ReportToDevButton(ui.Button):
         )
 
         try:
-            await client.get_user(936343190632558593).send(embed=error_embed)
+            await client.get_user(ID.DEV_ID).send(embed=error_embed)
             await interaction.response.send_message(embed=error_embed, ephemeral=True)
         except Exception as e:
-            await interaction.response.send_message("⚠️ - Виникла непередбачена помилка. Наразі неможливо надіслати звіт автоматично. Ви можете звернутися до <@936343190632558593>.")
+            await interaction.response.send_message(f"⚠️ - Виникла непередбачена помилка. Наразі неможливо надіслати звіт автоматично. Ви можете звернутися до <@{ID.DEV_ID}>.")
 
 #TODO - Polish and implement sending reports to my DM's

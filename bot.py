@@ -2,9 +2,11 @@ import disnake
 
 from disnake.ext import commands
 
+from constants import ID
+
 client = commands.Bot(
     command_prefix=".",
-    test_guilds=[1336148824007249942],
+    test_guilds=[ID.GUILD],
     intents=disnake.Intents.all(),
     reload=True
 )

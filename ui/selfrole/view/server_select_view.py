@@ -2,6 +2,7 @@ from disnake import ui, ButtonStyle, PartialEmoji, Guild
 
 from ui.selfrole.button.server_select_button import ServerSelectButton
 from utils import getRole
+from constants import ID
 
 class ServerSelectView(ui.View):
     def __init__(self, guild: Guild):
@@ -12,8 +13,8 @@ class ServerSelectView(ui.View):
                 style=ButtonStyle.gray,
                 disabled=False,
                 custom_id="uarp1_selfrole_button",
-                emoji=PartialEmoji.from_str("uarp1:1382518356615364739"),
-                role=getRole(guild, 1382524647165395106)
+                emoji=PartialEmoji.from_str(f"uarp1:{ID.Emoji.UARP_1}"),
+                role=getRole(guild, ID.Role.UKRAINERP_1)
             )
         )
         self.add_item(
@@ -22,7 +23,7 @@ class ServerSelectView(ui.View):
                 style=ButtonStyle.gray,
                 disabled=False,
                 custom_id="uarp2_selfrole_button",
-                emoji=PartialEmoji.from_str("uarp2:1382518371928637440"),
-                role=getRole(guild, 1382524692287590490)
+                emoji=PartialEmoji.from_str(f"uarp2:{ID.Emoji.UARP_2}"),
+                role=getRole(guild, ID.Role.UKRAINERP_2)
             )
         )
