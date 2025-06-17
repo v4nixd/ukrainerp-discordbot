@@ -3,7 +3,7 @@ from disnake.ext import commands
 from disnake import app_commands
 
 from logger import logger
-from constants import ID
+from constants import ID, HELP_FOOTER_IMG
 
 class Help(commands.Cog):
     def __init__(self, client):
@@ -32,7 +32,7 @@ class Help(commands.Cog):
             inline=False
         )
 
-        help_embed.set_footer(text="UkraineRP Bot • powered by v4nixd", icon_url=ID.HELP_FOOTER_IMG)
+        help_embed.set_footer(text="UkraineRP Bot • powered by v4nixd", icon_url=HELP_FOOTER_IMG)
 
         await interaction.send(embed=help_embed, ephemeral=True)
 

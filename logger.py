@@ -1,7 +1,7 @@
 import logging
 import sys
 
-from colorama import init, Fore, Style
+from colorama import Fore, Style
 
 class ColoredFormatter(logging.Formatter):
     COLORS = {

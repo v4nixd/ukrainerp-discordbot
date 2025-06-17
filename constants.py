@@ -1,7 +1,8 @@
+HELP_FOOTER_IMG = "https://v4nixd.xyz/cdn/VA_ICON_INVERTED_FULL.png"
+
 class ID:
     GUILD = 1336148824007249942
     DEV_ID = 936343190632558593
-    HELP_FOOTER_IMG = "https://v4nixd.xyz/cdn/VA_ICON_INVERTED_FULL.png"
 
     class Role:
         UKRAINERP_1 = 1382524647165395106
