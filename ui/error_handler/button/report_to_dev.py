@@ -20,5 +20,3 @@ class ReportToDevButton(ui.Button):
             await interaction.response.send_message(embed=report_to_dev_embed.get(self.error), ephemeral=True)
         except Exception:
             await interaction.response.send_message(f"⚠️ - Виникла непередбачена помилка. Наразі неможливо надіслати звіт автоматично. Ви можете звернутися до <@{ID.DEV_ID}>.")
-
-#TODO - Polish and implement sending reports to my DM's

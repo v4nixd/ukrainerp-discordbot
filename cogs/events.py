@@ -19,7 +19,7 @@ class Events(commands.Cog):
         self.client.add_view(ServerSelectView(self.client.get_guild(ID.GUILD)))
 
     @commands.Cog.listener()
-    async def on_resume(self) -> None:
+    async def on_resumed(self) -> None:
         logger.warning("Resumed session")
 
     @commands.Cog.listener()
